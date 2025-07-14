@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Café - Home</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>Sistema de Café</h1>
+                <div class="user-info">
+                    <span id="userName">Bem-vindo!</span>
+                    <button id="logoutBtn" class="btn btn-secondary">Sair</button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <!-- Seção de Pesquisa e Filtros -->
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Pesquisar cafés por nome, origem, tipo...">
+                    <button id="searchBtn" class="btn btn-primary">Pesquisar</button>
+                    <button id="clearSearchBtn" class="btn btn-secondary">Limpar</button>
+                </div>
+                
+                <div class="filters">
+                    <select id="origemFilter">
+                        <option value="">Todas as origens</option>
+                        <option value="Brasil">Brasil</option>
+                        <option value="Colômbia">Colômbia</option>
+                        <option value="Etiópia">Etiópia</option>
+                        <option value="Jamaica">Jamaica</option>
+                        <option value="Guatemala">Guatemala</option>
+                        <option value="Arabica">Arabica</option>
+                    </select>
+                    
+                    <select id="tipoFilter">
+                        <option value="">Todos os tipos</option>
+                        <option value="Grãos">Grãos</option>
+                        <option value="Moído">Moído</option>
+                        <option value="Cápsula">Cápsula</option>
+                    </select>
+                    
+                    <select id="torraFilter">
+                        <option value="">Todas as torras</option>
+                        <option value="Clara">Clara</option>
+                        <option value="Média">Média</option>
+                        <option value="Escura">Escura</option>
+                    </select>
+                    
+                    <button id="applyFiltersBtn" class="btn btn-primary">Aplicar Filtros</button>
+                </div>
+            </div>
+            
+            <!-- Seção de Ações -->
+            <div class="actions-section">
+                <button id="addCafeBtn" class="btn btn-success">+ Adicionar Café</button>
+                <button id="listAllBtn" class="btn btn-primary">Listar Todos</button>
+            </div>
+            
+            <!-- Lista de Cafés -->
+            <div class="cafes-section">
+                <h2>Lista de Cafés</h2>
+                <div id="cafesList" class="cafes-grid"></div>
+                <div id="loadingMessage" class="loading" style="display: none;">Carregando...</div>
+                <div id="emptyMessage" class="empty-message" style="display: none;">Nenhum café encontrado.</div>
+            </div>
+        </main>
+        
+        <!-- Modal para Adicionar/Editar Café -->
+        <div id="cafeModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Adicionar Café</h3>
+                    <span class="close">&times;</span>
+                </div>
+                
+                <form id="cafeForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cafeNome">Nome:</label>
+                            <input type="text" id="cafeNome" name="nome" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cafeOrigem">Origem:</label>
+                            <select id="cafeOrigem" name="origem" required>
+                                <option value="">Selecione...</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Colômbia">Colômbia</option>
+                                <option value="Etiópia">Etiópia</option>
+                                <option value="Arabica">Arabica</option>
+                              
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cafeTipo">Tipo:</label>
+                            <select id="cafeTipo" name="tipo" required>
+                                <option value="">Selecione...</option>
+                                <option value="Grãos">Grãos</option>
+                                <option value="Moído">Moído</option>
+                                <option value="Cápsula">Cápsula</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cafeTorra">Torra:</label>
+                            <select id="cafeTorra" name="torra" required>
+                                <option value="">Selecione...</option>
+                                <option value="Clara">Clara</option>
+                                <option value="Média">Média</option>
+                                <option value="Escura">Escura</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cafeAroma">Aroma:</label>
+                            <select id="cafeAroma" name="aroma" required>
+                                <option value="">Selecione...</option>
+                                <option value="Floral">Floral</option>
+                                <option value="Achocolatado">Achocolatado</option>
+                                <option value="Frutado">Frutado</option>
+                                <option value="Caramelizado">Caramelizado</option>
+                                <option value="Especiado">Especiado</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cafeSabor">Sabor:</label>
+                            <select id="cafeSabor" name="sabor" required>
+                                <option value="">Selecione...</option>
+                                <option value="Doce">Doce</option>
+                                <option value="Amargo">Amargo</option>
+                                <option value="Ácido">Ácido</option>
+                                <option value="Equilibrado">Equilibrado</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cafePreco">Preço (R$):</label>
+                            <input type="number" id="cafePreco" name="preco" step="0.01" min="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cafeQuantidade">Quantidade em Estoque:</label>
+                            <input type="number" id="cafeQuantidade" name="quantidadeEstoque" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div id="message" class="message"></div>
+    
+    <script src="./js/home.js"></script>
+</body>
+</html>
+
